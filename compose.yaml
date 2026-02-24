@@ -79,16 +79,13 @@ services:
     container_name: ollama
     env_file:
       - ./ollama/.env
+    devices:
+      - /dev/dri:/dev/dri #AMD device video/render
+      - /dev/kfd:/dev/kfd #AMD device video/render
     volumes:
       - ./ollama/data/:/root/.ollama
       - ./ollama/models:/ollama-models
     restart: unless-stopped
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - /dev/dri:/dev/dri #AMD device video/render
-            - /dev/kfd:/dev/kfd #AMD device video/render
               
   # paperless-ai service
   paperless-ai:
